@@ -1,22 +1,36 @@
 {
-    "name": "imageboard",
-    "version": "1.0.0",
-    "description": "",
-    "main": "server.js",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "node server.js"
-    },
-    "engines": {
-        "node": "14.15.1"
-    },
-    "author": "",
-    "license": "ISC",
-    "dependencies": {
-        "aws-sdk": "^2.476.0",
-        "express": "^4.14.0",
-        "multer": "^1.2.0",
-        "spiced-pg": "^1.0.4",
-        "uid-safe": "^2.1.4"
-    }
+  "name": "imageboard",
+  "version": "0.0.1",
+  "description": "imageboard with vue.js",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": "14.15.1"
+  },
+  "author": "martin",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.476.0",
+    "express": "^4.14.0",
+    "multer": "^1.2.0",
+    "spiced-pg": "^1.0.4",
+    "uid-safe": "^2.1.4"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/spicedacademy/zitronenmelisse-imageboard.git"
+  },
+  "keywords": [
+    "imageboard",
+    "vue",
+    "js"
+  ],
+  "bugs": {
+    "url": "https://github.com/spicedacademy/zitronenmelisse-imageboard/issues"
+  },
+  "homepage": "https://github.com/spicedacademy/zitronenmelisse-imageboard#readme"
 }
