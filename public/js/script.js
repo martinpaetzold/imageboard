@@ -1,11 +1,11 @@
 new Vue({
     el: "#main",
     data: {
-        animals: [],
+        images: [],
     },
     mounted() {
-        axios.get("/api/animals").then((response) => {
-            this.animals = response.data;
+        axios.get("/api/images").then((response) => {
+            this.images = response.data;
         });
     },
 });

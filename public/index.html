@@ -1,8 +1,9 @@
 <!doctype html>
 <html>
 <head>
-    <title>emoji api animals</title>
+    <title>imageboard</title>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="./css/main.css">
 </head>
 <body>
@@ -10,15 +11,19 @@
     
 
     <div id="main">
-        <h2>Hello!</h2>
-        <h1>I like those {{ animals.length }} animals:</h1>
+        <h2>Hello</h2>
+        <h1>This imageboard contains {{ images.length }} images at all. Enjoy them.</h1>
 
-        <ul>
-            <li v-for="animal in animals">
-                {{animal.image}}
-                <h3>{{animal.name}}</h3>
-            </li>
-        </ul>
+        <div class="allImages">
+            <div class="imageWrapper" v-for="image in images">
+                <img v-bind:src="image.url">
+                    <div class="info">
+                        <p class="title">{{image.title}}</p>
+                        <p class="username">{{image.username}}</p>
+                        <p class="desc">{{image.description}}</p>
+                    </div>                        
+            </div>
+        </div>
 
     </div>
 

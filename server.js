@@ -1,17 +1,13 @@
 const express = require("express");
-const app = express();
+const database = require("./database.js");
 
+const app = express();
 app.use(express.static("public"));
 
-app.get("/api/animals", (request, response) => {
-    const animals = [
-        { name: "Turtles", image: "🐢" },
-        { name: "Facebook", image: "🐙" },
-        { name: "Scorpions", image: "🦂" },
-        { name: "Dogs", image: "🐕" },
-        { name: "Monkeys", image: "🐒" },
-    ];
-    response.json(animals);
+app.get("/api/images", (request, response) => {
+    database.getImages().then((result) => {
+        response.json(result.rows);
+    });
 });
 
 //heroku || local
