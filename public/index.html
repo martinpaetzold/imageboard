@@ -12,7 +12,18 @@
 
     <div id="main">
         <h2>Hello</h2>
-        <h1>This imageboard contains {{ images.length }} images at all. Enjoy them.</h1>
+        <h1>This image-board contains {{ images.length }} pics at all. Enjoy them.</h1>
+
+        <div class="upload">
+            Do you also have awesome pictures?<br>Just upload them, but please not bigger than 5MB.<br><br>
+            <input type="text" name="title" id="title" v-model="title" placeholder="title">
+            <input type="text" name="username" id="username" v-model="username" placeholder="username">
+            <input type="text" name="description" id="description" v-model="description" placeholder="description">
+
+            <input type="file" name="file" accept="image/*" v-on:change="fileSelected">
+
+            <button v-on:click="uploadImage">Upload now</button>
+        </div>
 
         <div class="allImages">
             <div class="imageWrapper" v-for="image in images">
@@ -26,7 +37,6 @@
         </div>
 
     </div>
-
 
     <script src="./js/vue.js"></script>
     <script src="./js/axios.min.js"></script>
