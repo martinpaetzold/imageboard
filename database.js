@@ -7,7 +7,7 @@ const db = spicedPG(
 
 //get the url, title, username, description
 exports.getImages = () => {
-    return db.query(`SELECT * FROM images;`);
+    return db.query(`SELECT * FROM images ORDER BY created_at DESC;`);
 };
 
 //get image by id (e.g. overlay)
@@ -39,5 +39,8 @@ exports.postCommentToDB = (user_id, image_id, comment) => {
 
 //get comments from choosen image
 exports.getCommentsByImageId = (id) => {
-    return db.query(`SELECT * FROM comments WHERE id=$1;`, [id]);
+    return db.query(
+        `SELECT * FROM comments WHERE image_id=$1 ORDER BY created_at DESC;`,
+        [id]
+    );
 };

@@ -125,6 +125,28 @@ app.post("/api/comment-add", (request, response) => {
     });
 });
 
+//get comments > image id
+app.get("/api/comments/:id", (request, response) => {
+    const { id } = request.params;
+
+    database
+        .getCommentsByImageId(id)
+        .then((results) => {
+            if (results.rows[0]) {
+                response.json({
+                    success: true,
+                    ...results.rows,
+                });
+                //console.log(results.rows);
+            } else {
+                response.status(404).json({ success: false });
+            }
+        })
+        .catch((error) => {
+            response.status(500).json({ success: false });
+        });
+});
+
 //heroku || local
 app.listen(process.env.PORT || 8080, () => {
     console.log("🛰️  Listening..");

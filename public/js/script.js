@@ -22,7 +22,7 @@ new Vue({
             formData.append("file", this.file);
 
             axios.post("/upload", formData).then((response) => {
-                this.images.push({
+                this.images.unshift({
                     url: response.data.fileURL,
                     title: this.title,
                     username: this.username,
@@ -48,12 +48,15 @@ Vue.component("image-overlay", {
             createdAt: "",
             description: "",
             commentText: "",
+            commentUser: "",
+            comments: [],
         };
     },
     methods: {
         closeMe: function () {
             this.$emit("close");
         },
+
         sendComment: function () {
             console.log("send Comment:", this.id, " / ", this.commentText);
 
@@ -81,6 +84,9 @@ Vue.component("image-overlay", {
             this.title = title;
             this.createdAt = new Date(created_at).toLocaleDateString();
             this.description = description;
+        });
+        axios.get("/api/comments/" + this.id).then((response) => {
+            this.comments = response.data;
         });
     },
 });
