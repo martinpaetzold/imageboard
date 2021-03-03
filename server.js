@@ -29,6 +29,26 @@ app.get("/api/images", (request, response) => {
     });
 });
 
+app.get("/api/image/:id", (request, response) => {
+    const { id } = request.params;
+
+    database
+        .getImageById(id)
+        .then((results) => {
+            if (results.rows[0]) {
+                response.json({
+                    success: true,
+                    ...results.rows[0],
+                });
+            } else {
+                response.status(404).json({ success: false });
+            }
+        })
+        .catch((error) => {
+            response.status(500).json({ success: false });
+        });
+});
+
 app.post("/upload", (request, response) => {
     // catch errors..
     const uploader = multer({

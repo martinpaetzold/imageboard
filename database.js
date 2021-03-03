@@ -10,6 +10,11 @@ exports.getImages = () => {
     return db.query(`SELECT * FROM images;`);
 };
 
+//get image by id (e.g. overlay)
+exports.getImageById = (id) => {
+    return db.query(`SELECT * FROM images WHERE id=$1;`, [id]);
+};
+
 //post image => DB
 exports.postImageToDB = (url, title, username, description) => {
     return db.query(

@@ -19,14 +19,12 @@
             <input type="text" name="title" id="title" v-model="title" placeholder="title">
             <input type="text" name="username" id="username" v-model="username" placeholder="username">
             <input type="text" name="description" id="description" v-model="description" placeholder="description">
-
             <input type="file" name="file" accept="image/*" v-on:change="fileSelected">
-
             <button v-on:click="uploadImage">Upload now</button>
         </div>
 
         <div class="allImages">
-            <div class="imageWrapper" v-for="image in images">
+            <div class="imageWrapper" v-on:click="selectedImageID=image.id" v-for="image in images">
                 <img v-bind:src="image.url">
                     <div class="info">
                         <p class="title">{{image.title}}</p>
@@ -36,7 +34,30 @@
             </div>
         </div>
 
+         <image-overlay v-on:close="selectedImageID=false" v-bind:id="selectedImageID" v-if="selectedImageID" />
+
     </div>
+
+    <script type="text/x-template" id="template-image-overlay">
+        <div>
+            <div class="background" v-on:click="closeMe"></div>
+            <div class="overlay">
+
+                <button v-on:click="closeMe">x</button>
+
+                <img v-bind:src="url" v-if="url">
+
+                <div class="content">
+
+                    <small>{{title}} (Uploaded by {{username}} on {{createdAt}})</small>
+                    <h3>{{description}}</h3>
+
+                    
+                </div>
+
+            </div>
+        </div>
+    </script>
 
     <script src="./js/vue.js"></script>
     <script src="./js/axios.min.js"></script>
