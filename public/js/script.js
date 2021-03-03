@@ -14,8 +14,6 @@ new Vue({
     },
     methods: {
         uploadImage: function () {
-            console.log("Upload image..");
-
             const formData = new FormData();
             formData.append("title", this.title);
             formData.append("username", this.username);

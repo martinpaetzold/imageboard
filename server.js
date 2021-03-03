@@ -3,15 +3,18 @@ const multer = require("multer");
 const uidSafe = require("uid-safe");
 const path = require("path");
 const database = require("./database.js");
-const { report } = require("process");
+const s3 = require("./s3.js");
 
 const diskStorage = multer.diskStorage({
-    destination: function (request, file, callback) {
-        callback(null, __dirname + "/uploads");
+    destination: (request, file, callback) => {
+        const destinationDirectory = __dirname + "/uploads";
+        callback(null, destinationDirectory);
     },
-    filename: function (request, file, callback) {
-        uidSafe(24).then(function (uid) {
-            callback(null, uid + path.extname(file.originalname));
+    filename: (request, file, callback) => {
+        uidSafe(24).then((uuid) => {
+            const originalExtension = path.extname(file.originalname);
+            const filename = uuid + originalExtension;
+            callback(null, filename);
         });
     },
 });
@@ -40,20 +43,20 @@ app.post("/upload", (request, response) => {
         // multer error like filesize too big
         if (error instanceof multer.MulterError) {
             console.log(error);
-            response.json({
+            response.status(400).json({
                 success: false,
                 error: "Error. Maybe filesize to big.",
             });
         } else if (!request.file) {
             console.log("No file selected");
             console.log(response);
-            response.json({
+            response.status(400).json({
                 success: false,
                 error: "No file selected.",
             });
         } else if (error) {
             console.log("Error. Something else:", error);
-            response.json({
+            response.status(400).json({
                 success: false,
                 error: "Error. Something went wrong.",
             });
@@ -65,31 +68,23 @@ app.post("/upload", (request, response) => {
             console.log("request.body", request.body);
             console.log("request.file", request.file);
 
-            // TODO: Save file info to database
-            const fileURL = "/uploads/" + request.file.filename;
-            // s3 url
-            const fileURLforDB =
-                // "https://s3.amazonaws.com/XYZ/spicedXYZ/" + request.file.filename;
-                "http://localhost:8080/uploads/" + request.file.filename;
-            console.log(fileURLforDB);
+            //s3
+            const fileURL = s3.getS3URL(request.file.filename);
 
             // Send response with uploaded file info
             Promise.all([
                 database.postImageToDB(
-                    fileURLforDB,
+                    fileURL,
                     request.body.title,
                     request.body.username,
                     request.body.description
                 ),
+                s3.uploadFile(request.file),
             ]).then((results) => {
-                const image = results[0].rows[0];
-                console.log(image);
                 response.json({
                     success: true,
-                    image,
+                    fileURL,
                 });
-                // bug: image not shown (file object not updated...?!)
-                // db input works fine.
             });
         }
     });
