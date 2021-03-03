@@ -52,6 +52,10 @@
                     <small>{{title}} (Uploaded by {{username}} on {{createdAt}})</small>
                     <h3>{{description}}</h3>
 
+                    <div class="comments">
+                        <textarea name="comment-text" v-model="commentText"></textarea>
+                        <button v-on:click="sendComment">Send</button>
+                    </div>
                     
                 </div>
 

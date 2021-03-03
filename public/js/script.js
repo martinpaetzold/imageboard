@@ -47,11 +47,22 @@ Vue.component("image-overlay", {
             username: "",
             createdAt: "",
             description: "",
+            commentText: "",
         };
     },
     methods: {
         closeMe: function () {
             this.$emit("close");
+        },
+        sendComment: function () {
+            console.log("send Comment:", this.id, " / ", this.commentText);
+
+            axios.post("/api/comment-add-as-json", {
+                comment: this.commentText,
+                imageId: this.id,
+            });
+
+            this.commentText = "";
         },
     },
     mounted: function () {

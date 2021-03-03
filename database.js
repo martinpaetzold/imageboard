@@ -25,3 +25,19 @@ exports.postImageToDB = (url, title, username, description) => {
         [url, title, username, description]
     );
 };
+
+//post comment => DB
+exports.postCommentToDB = (user_id, image_id, comment) => {
+    return db.query(
+        `INSERT INTO comments
+            (user_id, image_id, comment)
+            VALUES ($1, $2, $3)
+            RETURNING *;`,
+        [user_id, image_id, comment]
+    );
+};
+
+//get comments from choosen image
+exports.getCommentsByImageId = (id) => {
+    return db.query(`SELECT * FROM comments WHERE id=$1;`, [id]);
+};

@@ -21,6 +21,7 @@ const diskStorage = multer.diskStorage({
 
 const app = express();
 app.use(express.static("public"));
+app.use(express.json());
 app.use("/uploads", express.static("uploads"));
 
 app.get("/api/images", (request, response) => {
@@ -107,6 +108,20 @@ app.post("/upload", (request, response) => {
                 });
             });
         }
+    });
+});
+
+//comments
+app.post("/api/comment-add-as-json", (request, response) => {
+    console.log("request.body", request.body);
+
+    const { imageId, comment } = request.body;
+
+    //post comment => DB
+    database.postCommentToDB("Testuser", imageId, comment).catch((error) => {
+        response.json({
+            success: false,
+        });
     });
 });
 
