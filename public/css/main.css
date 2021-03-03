@@ -158,11 +158,12 @@ button {
     position: absolute;
     bottom: 0px;
     left: 0px;
-    height: 20px;
+    height: 15px;
     width: 100%;
     background: rgba(255, 255, 255, 0.8);
     border: 0;
-    padding: 20px;
+    padding: 15px;
+    padding-top: 10px;
     overflow-x: hidden;
     overflow-y: auto;
     transition: all 0.3s;
@@ -175,23 +176,50 @@ button {
 }
 
 .overlay h3 {
-    margin-top: 40px;
+    margin-top: 6px;
     font-size: 23px;
     color: rgba(123, 123, 123, 0.7);
     display: block;
 }
 
+.comments {
+    margin-top: 20px;
+}
+
 .comments button {
+    display: inline;
     position: relative;
     top: 0px;
     left: 0px;
     width: 60px;
-    height: 40px;
+    height: 30px;
     border: 0;
     z-index: 24;
     cursor: pointer;
     margin-top: 0px;
     padding: 0px;
-    color: rgba(128, 128, 128, 0.5);
-    background: rgb(0, 0, 0);
+    color: #fff;
+    background: rgba(128, 128, 128, 0.5);
+    font-size: 14px;
+}
+
+.comments input {
+    display: inline;
+    width: 150px;
+    height: 30px;
+    border: 0;
+    margin-right: 5px;
+    font-size: 14px;
+}
+
+#commenttext {
+    display: inline;
+    border: 0;
+    height: 30px;
+    width: 350px;
+}
+
+.comments small {
+    display: block;
+    margin-bottom: 10px;
 }

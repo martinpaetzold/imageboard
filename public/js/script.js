@@ -57,11 +57,13 @@ Vue.component("image-overlay", {
         sendComment: function () {
             console.log("send Comment:", this.id, " / ", this.commentText);
 
-            axios.post("/api/comment-add-as-json", {
+            axios.post("/api/comment-add", {
+                commentUser: this.commentUser,
                 comment: this.commentText,
                 imageId: this.id,
             });
 
+            this.commentUser = "";
             this.commentText = "";
         },
     },

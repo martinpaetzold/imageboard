@@ -112,15 +112,15 @@ app.post("/upload", (request, response) => {
 });
 
 //comments
-app.post("/api/comment-add-as-json", (request, response) => {
+app.post("/api/comment-add", (request, response) => {
     console.log("request.body", request.body);
 
-    const { imageId, comment } = request.body;
+    const { commentUser, imageId, comment } = request.body;
 
     //post comment => DB
-    database.postCommentToDB("Testuser", imageId, comment).catch((error) => {
-        response.json({
-            success: false,
+    database.postCommentToDB(commentUser, imageId, comment).catch((error) => {
+        response.status(200).json({
+            success: true,
         });
     });
 });
