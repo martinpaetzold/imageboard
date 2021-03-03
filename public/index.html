@@ -52,6 +52,14 @@
                     <small>{{title}} (Uploaded by {{username}} on {{createdAt}})</small>
                     <h3>{{description}}</h3>
 
+                    <h3 class="commentsHL">Comments</h3>
+                    <div class="commentsWrapper">
+                        
+                        <div class="commentsDB" v-for="comment in comments">
+                        <small><strong>{{comment.user_id}}:</strong> {{comment.comment}}<small>
+                        </div>
+                    </div>
+
                     <div class="comments">
                         <small>Add a comment...</small>
                         <input type="text" name="comment-username" v-model="commentUser" placeholder="Username">

@@ -85,8 +85,9 @@ Vue.component("image-overlay", {
             this.createdAt = new Date(created_at).toLocaleDateString();
             this.description = description;
         });
+
         axios.get("/api/comments/" + this.id).then((response) => {
-            this.comments = response.data;
+            this.comments = response.data.comments;
         });
     },
 });

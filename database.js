@@ -40,7 +40,8 @@ exports.postCommentToDB = (user_id, image_id, comment) => {
 //get comments from choosen image
 exports.getCommentsByImageId = (id) => {
     return db.query(
-        `SELECT * FROM comments WHERE image_id=$1 ORDER BY created_at DESC;`,
+        `SELECT * FROM comments WHERE image_id=$1
+         ORDER BY created_at DESC;`,
         [id]
     );
 };

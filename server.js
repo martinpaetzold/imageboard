@@ -135,9 +135,8 @@ app.get("/api/comments/:id", (request, response) => {
             if (results.rows[0]) {
                 response.json({
                     success: true,
-                    ...results.rows,
+                    comments: results.rows,
                 });
-                //console.log(results.rows);
             } else {
                 response.status(404).json({ success: false });
             }
