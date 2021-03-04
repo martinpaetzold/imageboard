@@ -39,7 +39,7 @@ new Vue({
             //console.log(lastID);
 
             axios.get("/api/images/next/" + lastID).then((response) => {
-                this.images.push(response.data);
+                this.images = [...this.images, ...response.data];
             });
         },
     },
@@ -73,6 +73,10 @@ Vue.component("image-overlay", {
                 commentUser: this.commentUser,
                 comment: this.commentText,
                 imageId: this.id,
+            });
+            this.comments.push({
+                user_id: this.commentUser,
+                comment: this.commentText,
             });
 
             this.commentUser = "";
