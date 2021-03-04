@@ -10,7 +10,11 @@
 
     <div id="main">
         <h2>Hello</h2>
+        <!-- :) i'm sorry for this... -->
+        <h1>Welcome to this image board. You see {{ images.length }} / 30 pics at all. Enjoy them.</h1>
+        <!--
         <h1>This image-board contains {{ images.length }} pics at all. Enjoy them.</h1>
+        -->
 
         <div class="upload">
             Do you also have awesome pictures?<br>Just upload them, but please not bigger than 5MB.<br><br>
@@ -32,7 +36,7 @@
             </div>
         </div>
 
-        <button v-if="moreImagesAvailable" v-on:click="getMorePictures" class="more">More</button>
+        <button v-if="moreImagesAvailable" v-on:click="getMorePictures" class="button-more">Show more images...</button>
 
         <image-overlay v-on:close="selectedImageID=false" v-bind:id="selectedImageID" v-if="selectedImageID" />
         

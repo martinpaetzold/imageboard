@@ -91,7 +91,7 @@ input {
 
 button {
     height: 50px;
-    width: 85vw;
+    width: 89vw;
     max-width: 615px;
     margin-top: 10px;
     font-size: 24px;
@@ -233,4 +233,8 @@ button {
 
 .commentsHL {
     margin-top: 20px !important;
+}
+
+.button-more {
+    margin-bottom: 40px;
 }
