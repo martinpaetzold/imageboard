@@ -7,6 +7,7 @@ new Vue({
         file: "",
         images: [],
         selectedImageID: false,
+        moreImagesAvailable: true,
     },
     mounted() {
         axios.get("/api/images").then((response) => {
@@ -32,6 +33,14 @@ new Vue({
         },
         fileSelected: function (event) {
             this.file = event.target.files[0];
+        },
+        getMorePictures() {
+            let lastID = this.images[this.images.length - 1].id;
+            //console.log(lastID);
+
+            axios.get("/api/images/next/" + lastID).then((response) => {
+                this.images.push(response.data);
+            });
         },
     },
 });

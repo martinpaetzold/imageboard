@@ -8,8 +8,6 @@
 </head>
 <body>
 
-    
-
     <div id="main">
         <h2>Hello</h2>
         <h1>This image-board contains {{ images.length }} pics at all. Enjoy them.</h1>
@@ -34,7 +32,10 @@
             </div>
         </div>
 
-         <image-overlay v-on:close="selectedImageID=false" v-bind:id="selectedImageID" v-if="selectedImageID" />
+        <button v-if="moreImagesAvailable" v-on:click="getMorePictures" class="more">More</button>
+
+        <image-overlay v-on:close="selectedImageID=false" v-bind:id="selectedImageID" v-if="selectedImageID" />
+        
 
     </div>
 
@@ -56,7 +57,7 @@
                     <div class="commentsWrapper">
                         
                         <div class="commentsDB" v-for="comment in comments">
-                        <small><strong>{{comment.user_id}}:</strong> {{comment.comment}}<small>
+                        <small><strong>{{comment.user_id}}:</strong> {{comment.comment}}</small>
                         </div>
                     </div>
 

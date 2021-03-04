@@ -30,6 +30,19 @@ app.get("/api/images", (request, response) => {
     });
 });
 
+app.get("/api/images/amount", (request, response) => {
+    database.getAmountOfImages().then((result) => {
+        response.json(result.rows);
+    });
+});
+
+app.get("/api/images/next/:id", (request, response) => {
+    const { id } = request.params;
+    database.getMoreImages(id).then((results) => {
+        response.json(results.rows);
+    });
+});
+
 app.get("/api/image/:id", (request, response) => {
     const { id } = request.params;
 

@@ -7,12 +7,25 @@ const db = spicedPG(
 
 //get the url, title, username, description
 exports.getImages = () => {
-    return db.query(`SELECT * FROM images ORDER BY created_at DESC;`);
+    return db.query(`SELECT * FROM images ORDER BY created_at DESC LIMIT 6;`);
 };
 
 //get image by id (e.g. overlay)
 exports.getImageById = (id) => {
     return db.query(`SELECT * FROM images WHERE id=$1;`, [id]);
+};
+
+//get amount of images
+exports.getAmountOfImages = () => {
+    return db.query(`SELECT count(id) FROM images`);
+};
+
+//get images the nice way
+exports.getMoreImages = (lastId) => {
+    return db.query(
+        `SELECT * FROM images WHERE id < $1 ORDER BY id DESC LIMIT 6`,
+        [lastId]
+    );
 };
 
 //post image => DB
