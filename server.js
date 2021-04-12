@@ -65,14 +65,14 @@ app.get("/api/image/:id", (request, response) => {
 
 app.post("/upload", (request, response) => {
     // catch errors..
-    const uploader = multer({
+    const uploaderLocal = multer({
         storage: diskStorage,
         limits: {
             fileSize: 5242880,
         },
-    }).single("file");
+    }).single("image");
 
-    uploader(request, response, function (error) {
+    uploaderLocal(request, response, function (error) {
         // catch errors..
         // multer error like filesize too big
         if (error instanceof multer.MulterError) {
@@ -97,29 +97,6 @@ app.post("/upload", (request, response) => {
         } else {
             // start with the upload stuff
             console.log("Wow. Upload?");
-
-            console.log("Awesome. Uploading..");
-            console.log("request.body", request.body);
-            console.log("request.file", request.file);
-
-            //s3
-            const fileURL = s3.getS3URL(request.file.filename);
-
-            // Send response with uploaded file info
-            Promise.all([
-                database.postImageToDB(
-                    fileURL,
-                    request.body.title,
-                    request.body.username,
-                    request.body.description
-                ),
-                s3.uploadFile(request.file),
-            ]).then((results) => {
-                response.json({
-                    success: true,
-                    fileURL,
-                });
-            });
         }
     });
 });
